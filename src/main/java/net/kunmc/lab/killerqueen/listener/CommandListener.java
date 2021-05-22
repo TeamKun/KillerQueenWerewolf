@@ -3,6 +3,7 @@ package net.kunmc.lab.killerqueen.listener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.Collections;
@@ -49,9 +50,17 @@ public class CommandListener implements Listener {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         switch (args.length) {
             case 1:
-                return Stream.of("setup", "start")
+                return Stream.of("killerqueen", "crazydiamond")
                         .filter(e -> e.startsWith(args[0]))
                         .collect(Collectors.toList());
+            case 2:
+                return Stream.of("add", "remove")
+                        .filter(e -> e.startsWith(args[1]))
+                        .collect(Collectors.toList());
+            case 3:
+                return Stream.concat(Bukkit.getOnlinePlayers()
+                        .stream().map(Player::getName), Stream.of("@a"))
+                        .filter(x -> x.startsWith(args[2])).collect(Collectors.toList());
         }
         return Collections.emptyList();
     }
