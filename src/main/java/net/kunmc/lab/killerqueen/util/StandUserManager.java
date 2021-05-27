@@ -11,6 +11,12 @@ import java.util.HashMap;
 public class StandUserManager {
     private static HashMap<String, Stand> standUsers = new HashMap<>();
 
+    /**
+     * スタンドを使えるユーザーをセットする
+     * @param sender　コマンド送信者
+     * @param playerName　スタンド使いになるプレイヤーの名前
+     * @param standType　キラークイーン or クレイジーダイヤモンド
+     */
     public void setStandUsers(CommandSender sender, String playerName, StandType standType) {
         if (standUsers.containsKey(playerName)) {
             if (standUsers.get(playerName).getStandType() == standType) {
@@ -38,6 +44,12 @@ public class StandUserManager {
         return;
     }
 
+    /**
+     * スタンドを消す
+     * @param sender　コマンド送信者
+     * @param playerName　スタンド使いの名前
+     * @param standType　キラークイーン or クレイジーダイヤモンド
+     */
     public void removeStandUsers(CommandSender sender, String playerName, StandType standType) {
         if (!standUsers.containsKey(playerName)) {
             sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "にはスタンドがセットされていません。");
@@ -56,5 +68,23 @@ public class StandUserManager {
             sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "から" + ChatColor.AQUA + "クレイジーダイヤモンド" + ChatColor.WHITE + "のスタンドを削除しました。");
         }
         return;
+    }
+
+    public boolean isKillerQueen(String playerName){
+        if(standUsers.containsKey(playerName)){
+            if(standUsers.get(playerName).getStandType() == StandType.KILLERQUEEN){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isCrazyDiamond(String playerName){
+        if(standUsers.containsKey(playerName)){
+            if(standUsers.get(playerName).getStandType() == StandType.CRAZYDIAMOND){
+                return true;
+            }
+        }
+        return false;
     }
 }
