@@ -6,7 +6,14 @@ import org.bukkit.entity.Entity;
 import java.util.HashMap;
 
 public class BombManager {
-    private static HashMap<String, Bomb> bombMap = new HashMap<>();
+    private static final BombManager INSTANCE = new BombManager();;
+    private HashMap<String, Bomb> bombMap = new HashMap<>();
+
+    private BombManager(){}
+
+    public static BombManager getInstance(){
+        return INSTANCE;
+    }
 
     /**
      * エンティティを爆弾としてセットする

@@ -9,7 +9,14 @@ import org.bukkit.command.CommandSender;
 import java.util.HashMap;
 
 public class StandUserManager {
-    private static HashMap<String, Stand> standUsers = new HashMap<>();
+    private static  HashMap<String, Stand> standUsers = new HashMap<>();
+    private static final StandUserManager INSTANCE = new StandUserManager();
+
+    private StandUserManager(){}
+
+    public static StandUserManager getInstance(){
+        return INSTANCE;
+    }
 
     /**
      * スタンドを使えるユーザーをセットする

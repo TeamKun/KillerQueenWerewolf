@@ -4,22 +4,25 @@ import net.kunmc.lab.killerqueen.util.StandType;
 import net.kunmc.lab.killerqueen.util.StandUserManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CommandListener implements Listener {
+public class CommandListener implements CommandExecutor, TabCompleter {
 
-    StandUserManager sum = new StandUserManager();
+    StandUserManager standUserManager = StandUserManager.getInstance();
 
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (!cmd.getName().equalsIgnoreCase("stand")) {
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, @NotNull String[] args) {
+        if (!cmd.getName().equalsIgnoreCase("killerqueenw")) {
             return false;
         }
         if (args.length < 1) {
@@ -44,26 +47,37 @@ public class CommandListener implements Listener {
                 sender.sendMessage("指定されたセレクタに該当するプレイヤーは存在しません。");
                 return true;
             }
+            StandType standType = StandType.NONE;
+            if (args[0].equalsIgnoreCase("KillerQueen")) {
+                standType = StandType.KILLERQUEEN;
+            }
+            if (args[0].equalsIgnoreCase("CrazyDiamond")) {
+                standType = StandType.CRAZYDIAMOND;
+            }
             for (Entity entity : Bukkit.selectEntities(sender, args[2])) {
                 Player player = (Player) entity;
+                standUserManager.setStandUsers(sender, player.getPlayerProfile().getName(), standType);
             }
+            return true;
         } else {
             if (Bukkit.getPlayer(args[2]) == null) {
                 sender.sendMessage("指定されたプレイヤー名は存在しません。");
                 return true;
             }
             if (args[0].equalsIgnoreCase("KillerQueen")) {
-                sum.setStandUsers(sender, args[2], StandType.KILLERQUEEN);
-            }
-            if (args[0].equalsIgnoreCase("CrazyDiamond")) {
-                sum.setStandUsers(sender, args[2], StandType.CRAZYDIAMOND);
+                standUserManager.setStandUsers(sender, args[2], StandType.KILLERQUEEN);
+                return true;
+            } else if (args[0].equalsIgnoreCase("CrazyDiamond")) {
+                standUserManager.setStandUsers(sender, args[2], StandType.CRAZYDIAMOND);
+                return true;
             }
         }
 
         return false;
     }
 
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         switch (args.length) {
             case 1:
                 return Stream.of("killerqueen", "crazydiamond")
