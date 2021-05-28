@@ -6,8 +6,9 @@ import org.bukkit.entity.Entity;
 import java.util.HashMap;
 
 public class BombManager {
-    private static final BombManager INSTANCE = new BombManager();;
+
     private HashMap<String, Bomb> bombMap = new HashMap<>();
+    private static final BombManager INSTANCE = new BombManager();;
 
     private BombManager(){}
 

@@ -3,26 +3,31 @@ package net.kunmc.lab.killerqueen.util;
 import net.kunmc.lab.killerqueen.stand.CrazyDiamond;
 import net.kunmc.lab.killerqueen.stand.KillerQueen;
 import net.kunmc.lab.killerqueen.stand.Stand;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class StandUserManager {
-    private static  HashMap<String, Stand> standUsers = new HashMap<>();
+
+    private HashMap<String, Stand> standUsers = new HashMap<>();
     private static final StandUserManager INSTANCE = new StandUserManager();
 
-    private StandUserManager(){}
+    private StandUserManager() {
+    }
 
-    public static StandUserManager getInstance(){
+    public static StandUserManager getInstance() {
         return INSTANCE;
     }
 
     /**
      * スタンドを使えるユーザーをセットする
-     * @param sender　コマンド送信者
-     * @param playerName　スタンド使いになるプレイヤーの名前
-     * @param standType　キラークイーン or クレイジーダイヤモンド
+     *
+     * @param sender     　コマンド送信者
+     * @param playerName 　スタンド使いになるプレイヤーの名前
+     * @param standType  　キラークイーン or クレイジーダイヤモンド
      */
     public void setStandUsers(CommandSender sender, String playerName, StandType standType) {
         if (standUsers.containsKey(playerName)) {
@@ -45,6 +50,8 @@ public class StandUserManager {
             }
             if (standType == StandType.CRAZYDIAMOND) {
                 standUsers.put(playerName, new CrazyDiamond());
+                Player p = Bukkit.getPlayer(playerName);
+                p.updateInventory();
                 sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "に" + ChatColor.AQUA + "クレイジーダイヤモンド" + ChatColor.WHITE + "のスタンドを付与しました。");
             }
         }
@@ -53,9 +60,10 @@ public class StandUserManager {
 
     /**
      * スタンドを消す
-     * @param sender　コマンド送信者
-     * @param playerName　スタンド使いの名前
-     * @param standType　キラークイーン or クレイジーダイヤモンド
+     *
+     * @param sender     　コマンド送信者
+     * @param playerName 　スタンド使いの名前
+     * @param standType  　キラークイーン or クレイジーダイヤモンド
      */
     public void removeStandUsers(CommandSender sender, String playerName, StandType standType) {
         if (!standUsers.containsKey(playerName)) {
@@ -77,18 +85,18 @@ public class StandUserManager {
         return;
     }
 
-    public boolean isKillerQueen(String playerName){
-        if(standUsers.containsKey(playerName)){
-            if(standUsers.get(playerName).getStandType() == StandType.KILLERQUEEN){
+    public boolean isKillerQueen(String playerName) {
+        if (standUsers.containsKey(playerName)) {
+            if (standUsers.get(playerName).getStandType() == StandType.KILLERQUEEN) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isCrazyDiamond(String playerName){
-        if(standUsers.containsKey(playerName)){
-            if(standUsers.get(playerName).getStandType() == StandType.CRAZYDIAMOND){
+    public boolean isCrazyDiamond(String playerName) {
+        if (standUsers.containsKey(playerName)) {
+            if (standUsers.get(playerName).getStandType() == StandType.CRAZYDIAMOND) {
                 return true;
             }
         }
