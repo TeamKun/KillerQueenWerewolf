@@ -1,0 +1,9 @@
+name: KillerQueenWerewolf
+version: ${project.version}
+main: net.kunmc.lab.killerqueen.KillerQueenWerewolf
+api-version: 1.16
+commands:
+  killerqueenw:
+    description: KillerQueen Werewolf
+    usage: /<killerqueenw>
+    permission: op
