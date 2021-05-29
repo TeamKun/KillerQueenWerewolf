@@ -5,8 +5,10 @@ import net.kunmc.lab.killerqueen.stand.KillerQueen;
 import net.kunmc.lab.killerqueen.stand.Stand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
@@ -41,7 +43,9 @@ public class StandUserManager {
             }
             if (standType == StandType.CRAZYDIAMOND) {
                 standUsers.replace(playerName, new CrazyDiamond());
-                sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "に" + ChatColor.AQUA + "クレイジーダイヤモンド" + ChatColor.WHITE + "のスタンドを付与しました。");
+                Player p = Bukkit.getPlayer(playerName);
+                setCrazyDiamondArmors(p);
+                sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "に" + ChatColor.AQUA + "クレイジー・ダイヤモンド" + ChatColor.WHITE + "のスタンドを付与しました。");
             }
         } else {
             if (standType == StandType.KILLERQUEEN) {
@@ -51,8 +55,8 @@ public class StandUserManager {
             if (standType == StandType.CRAZYDIAMOND) {
                 standUsers.put(playerName, new CrazyDiamond());
                 Player p = Bukkit.getPlayer(playerName);
-                p.updateInventory();
-                sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "に" + ChatColor.AQUA + "クレイジーダイヤモンド" + ChatColor.WHITE + "のスタンドを付与しました。");
+                setCrazyDiamondArmors(p);
+                sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "に" + ChatColor.AQUA + "クレイジー・ダイヤモンド" + ChatColor.WHITE + "のスタンドを付与しました。");
             }
         }
         return;
@@ -80,7 +84,9 @@ public class StandUserManager {
         }
         if (standType == StandType.CRAZYDIAMOND) {
             standUsers.remove(playerName);
-            sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "から" + ChatColor.AQUA + "クレイジーダイヤモンド" + ChatColor.WHITE + "のスタンドを削除しました。");
+            Player p = Bukkit.getPlayer(playerName);
+            removeCrazyDiamondArmors(p);
+            sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "から" + ChatColor.AQUA + "クレイジー・ダイヤモンド" + ChatColor.WHITE + "のスタンドを削除しました。");
         }
         return;
     }
@@ -101,5 +107,23 @@ public class StandUserManager {
             }
         }
         return false;
+    }
+
+    public void setCrazyDiamondArmors(Player p){
+        ItemStack[] armors = p.getInventory().getArmorContents();
+        armors[3] = new ItemStack(Material.DIAMOND_HELMET);
+        armors[2] = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        armors[1] = new ItemStack(Material.DIAMOND_LEGGINGS);
+        armors[0] = new ItemStack(Material.DIAMOND_BOOTS);
+        p.getInventory().setArmorContents(armors);
+    }
+
+    public void removeCrazyDiamondArmors(Player p){
+        ItemStack[] armors = p.getInventory().getArmorContents();
+        armors[3] = new ItemStack(Material.AIR);
+        armors[2] = new ItemStack(Material.AIR);
+        armors[1] = new ItemStack(Material.AIR);
+        armors[0] = new ItemStack(Material.AIR);
+        p.getInventory().setArmorContents(armors);
     }
 }

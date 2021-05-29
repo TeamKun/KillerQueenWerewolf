@@ -54,26 +54,39 @@ public class CommandListener implements CommandExecutor, TabCompleter {
             if (args[0].equalsIgnoreCase("CrazyDiamond")) {
                 standType = StandType.CRAZYDIAMOND;
             }
-            for (Entity entity : Bukkit.selectEntities(sender, args[2])) {
-                Player player = (Player) entity;
-                standUserManager.setStandUsers(sender, player.getPlayerProfile().getName(), standType);
+            if (args[1].equalsIgnoreCase("add")) {
+                for (Entity entity : Bukkit.selectEntities(sender, args[2])) {
+                    Player player = (Player) entity;
+                    standUserManager.setStandUsers(sender, player.getPlayerProfile().getName(), standType);
+                }
             }
-            return true;
+            if (args[1].equalsIgnoreCase("remove")) {
+                for (Entity entity : Bukkit.selectEntities(sender, args[2])) {
+                    Player player = (Player) entity;
+                    standUserManager.removeStandUsers(sender, player.getPlayerProfile().getName(), standType);
+                }
+            }
         } else {
             if (Bukkit.getPlayer(args[2]) == null) {
                 sender.sendMessage("指定されたプレイヤー名は存在しません。");
                 return true;
             }
+            StandType standType = StandType.NONE;
             if (args[0].equalsIgnoreCase("KillerQueen")) {
-                standUserManager.setStandUsers(sender, args[2], StandType.KILLERQUEEN);
-                return true;
+                standType = StandType.KILLERQUEEN;
             } else if (args[0].equalsIgnoreCase("CrazyDiamond")) {
-                standUserManager.setStandUsers(sender, args[2], StandType.CRAZYDIAMOND);
-                return true;
+                standType = StandType.CRAZYDIAMOND;
+
+            }
+            if (args[1].equalsIgnoreCase("add")) {
+                standUserManager.setStandUsers(sender, args[2], standType);
+            }
+            if (args[1].equalsIgnoreCase("remove")) {
+                standUserManager.removeStandUsers(sender, args[2], standType);
             }
         }
+        return true;
 
-        return false;
     }
 
     @Override
