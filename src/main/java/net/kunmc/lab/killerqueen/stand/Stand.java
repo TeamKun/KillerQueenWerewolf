@@ -1,6 +1,6 @@
 package net.kunmc.lab.killerqueen.stand;
 
-import net.kunmc.lab.killerqueen.util.StandType;
+import net.kunmc.lab.killerqueen.enums.StandType;
 
 public interface Stand {
     public StandType getStandType();

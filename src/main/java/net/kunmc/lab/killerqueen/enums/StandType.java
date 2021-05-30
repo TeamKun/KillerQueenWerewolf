@@ -1,4 +1,4 @@
-package net.kunmc.lab.killerqueen.util;
+package net.kunmc.lab.killerqueen.enums;
 
 public enum StandType {
     NONE,

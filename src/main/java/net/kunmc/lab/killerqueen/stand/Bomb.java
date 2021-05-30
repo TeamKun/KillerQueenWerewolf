@@ -1,5 +1,7 @@
-package net.kunmc.lab.killerqueen.util;
+package net.kunmc.lab.killerqueen.stand;
 
+import net.kunmc.lab.killerqueen.enums.BlastType;
+import net.kunmc.lab.killerqueen.enums.BombCategory;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 

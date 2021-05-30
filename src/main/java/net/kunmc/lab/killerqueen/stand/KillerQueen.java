@@ -1,12 +1,10 @@
 package net.kunmc.lab.killerqueen.stand;
 
-import net.kunmc.lab.killerqueen.util.BlastType;
-import net.kunmc.lab.killerqueen.util.Bomb;
-import net.kunmc.lab.killerqueen.util.BombCategory;
-import net.kunmc.lab.killerqueen.util.StandType;
+import net.kunmc.lab.killerqueen.enums.BlastType;
+import net.kunmc.lab.killerqueen.enums.BombCategory;
+import net.kunmc.lab.killerqueen.enums.StandType;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 
 public class KillerQueen implements Stand {
 

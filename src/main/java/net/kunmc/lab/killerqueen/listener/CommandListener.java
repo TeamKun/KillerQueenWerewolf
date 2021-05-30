@@ -1,6 +1,6 @@
 package net.kunmc.lab.killerqueen.listener;
 
-import net.kunmc.lab.killerqueen.util.StandType;
+import net.kunmc.lab.killerqueen.enums.StandType;
 import net.kunmc.lab.killerqueen.util.StandUserManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -43,7 +43,7 @@ public class CommandListener implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args[2].startsWith("@")) {
-            if (Bukkit.selectEntities(sender, args[2]) == null) {
+            if (Bukkit.selectEntities(sender, args[2]).isEmpty()) {
                 sender.sendMessage("指定されたセレクタに該当するプレイヤーは存在しません。");
                 return true;
             }

@@ -1,5 +1,6 @@
 package net.kunmc.lab.killerqueen.util;
 
+import net.kunmc.lab.killerqueen.enums.StandType;
 import net.kunmc.lab.killerqueen.stand.CrazyDiamond;
 import net.kunmc.lab.killerqueen.stand.KillerQueen;
 import net.kunmc.lab.killerqueen.stand.Stand;
@@ -91,6 +92,11 @@ public class StandUserManager {
         return;
     }
 
+    /**
+     * プレイヤーがキラークイーンかどうか判定
+     * @param playerName
+     * @return
+     */
     public boolean isKillerQueen(String playerName) {
         if (standUsers.containsKey(playerName)) {
             if (standUsers.get(playerName).getStandType() == StandType.KILLERQUEEN) {
@@ -100,6 +106,11 @@ public class StandUserManager {
         return false;
     }
 
+    /**
+     * プレイヤーがクレイジー・ダイヤモンドかどうか判定
+     * @param playerName
+     * @return
+     */
     public boolean isCrazyDiamond(String playerName) {
         if (standUsers.containsKey(playerName)) {
             if (standUsers.get(playerName).getStandType() == StandType.CRAZYDIAMOND) {
@@ -109,6 +120,11 @@ public class StandUserManager {
         return false;
     }
 
+    /**
+     * クレイジー・ダイヤモンドとして設定されたプレイヤーに
+     * ダイヤモンドのフル装備をセットする
+     * @param p
+     */
     public void setCrazyDiamondArmors(Player p){
         ItemStack[] armors = p.getInventory().getArmorContents();
         armors[3] = new ItemStack(Material.DIAMOND_HELMET);
@@ -118,6 +134,11 @@ public class StandUserManager {
         p.getInventory().setArmorContents(armors);
     }
 
+    /**
+     * クレイジー・ダイヤモンドとして設定されたプレイヤーが
+     * removeされた際に装備を外す。
+     * @param p
+     */
     public void removeCrazyDiamondArmors(Player p){
         ItemStack[] armors = p.getInventory().getArmorContents();
         armors[3] = new ItemStack(Material.AIR);
