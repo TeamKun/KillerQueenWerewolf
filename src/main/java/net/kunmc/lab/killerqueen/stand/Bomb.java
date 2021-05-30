@@ -8,20 +8,20 @@ import org.bukkit.entity.Entity;
 public class Bomb {
 
     private BombCategory category;
-    private BlastType type;
+    private BlastType blastType;
     private Block bombBlock;
     private Entity bombEntity;
 
     public Bomb(Block bombBlock, BombCategory category, BlastType type) {
         this.bombBlock = bombBlock;
         this.category = category;
-        this.type = type;
+        this.blastType = type;
     }
 
     public Bomb(Entity bombEntity, BombCategory category, BlastType type) {
         this.bombEntity = bombEntity;
         this.category = category;
-        this.type = type;
+        this.blastType = type;
     }
 
     public BombCategory category() {
@@ -32,12 +32,28 @@ public class Bomb {
         this.category = category;
     }
 
-    public BlastType type() {
-        return type;
+    public BlastType blastType() {
+        return blastType;
     }
 
-    public void type(BlastType type) {
-        this.type = type;
+    public void blastType(BlastType type) {
+        this.blastType = type;
+    }
+
+    public Block bombBlock() {
+        return bombBlock;
+    }
+
+    public void bombBlock(Block bombBlock) {
+        this.bombBlock = bombBlock;
+    }
+
+    public Entity bombEntity() {
+        return bombEntity;
+    }
+
+    public void bombEntity(Entity bombEntity) {
+        this.bombEntity = bombEntity;
     }
 
     public void blast() {

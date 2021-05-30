@@ -12,10 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class StandUserManager {
 
-    private HashMap<String, Stand> standUsers = new HashMap<>();
+    private Map<String, Stand> standUsers = new HashMap<>();
     private static final StandUserManager INSTANCE = new StandUserManager();
 
     private StandUserManager() {
