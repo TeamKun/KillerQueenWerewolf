@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class StandUserManager {
 
-    private Map<String, Stand> standUsers = new HashMap<>();
+    private final Map<String, Stand> standUsers = new HashMap<>();
     private static final StandUserManager INSTANCE = new StandUserManager();
 
     private StandUserManager() {
@@ -61,7 +61,6 @@ public class StandUserManager {
                 sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "に" + ChatColor.AQUA + "クレイジー・ダイヤモンド" + ChatColor.WHITE + "のスタンドを付与しました。");
             }
         }
-        return;
     }
 
     /**
@@ -90,33 +89,28 @@ public class StandUserManager {
             removeCrazyDiamondArmors(p);
             sender.sendMessage(ChatColor.YELLOW + playerName + ChatColor.WHITE + "から" + ChatColor.AQUA + "クレイジー・ダイヤモンド" + ChatColor.WHITE + "のスタンドを削除しました。");
         }
-        return;
     }
 
     /**
      * プレイヤーがキラークイーンかどうか判定
-     * @param playerName
-     * @return
+     * @param playerName 対象プレイヤー
+     * @return 対象がキラークイーンか否か
      */
     public boolean isKillerQueen(String playerName) {
         if (standUsers.containsKey(playerName)) {
-            if (standUsers.get(playerName).getStandType() == StandType.KILLERQUEEN) {
-                return true;
-            }
+            return standUsers.get(playerName).getStandType() == StandType.KILLERQUEEN;
         }
         return false;
     }
 
     /**
      * プレイヤーがクレイジー・ダイヤモンドかどうか判定
-     * @param playerName
-     * @return
+     * @param playerName　対象プレイヤー
+     * @return 対象がクレイジー・ダイヤモンドか否か
      */
     public boolean isCrazyDiamond(String playerName) {
         if (standUsers.containsKey(playerName)) {
-            if (standUsers.get(playerName).getStandType() == StandType.CRAZYDIAMOND) {
-                return true;
-            }
+            return standUsers.get(playerName).getStandType() == StandType.CRAZYDIAMOND;
         }
         return false;
     }
@@ -124,7 +118,7 @@ public class StandUserManager {
     /**
      * クレイジー・ダイヤモンドとして設定されたプレイヤーに
      * ダイヤモンドのフル装備をセットする
-     * @param p
+     * @param p クレイジー・ダイヤモンドに指定されたプレイヤー
      */
     public void setCrazyDiamondArmors(Player p){
         ItemStack[] armors = p.getInventory().getArmorContents();
@@ -138,7 +132,7 @@ public class StandUserManager {
     /**
      * クレイジー・ダイヤモンドとして設定されたプレイヤーが
      * removeされた際に装備を外す。
-     * @param p
+     * @param p クレイジー・ダイヤモンドに指定されたプレイヤー
      */
     public void removeCrazyDiamondArmors(Player p){
         ItemStack[] armors = p.getInventory().getArmorContents();

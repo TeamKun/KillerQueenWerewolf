@@ -6,6 +6,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * クールダウン管理用のクラス
+ */
 public class CoolDown {
 
     private final static CoolDown INSTANCE = new CoolDown();
@@ -19,11 +22,7 @@ public class CoolDown {
     }
 
     public boolean getCoolDownStatus(String playerName){
-        if(onCoolDownMap.containsKey(playerName)){
-            return onCoolDownMap.get(playerName);
-        }else{
-            return false;
-        }
+        return onCoolDownMap.getOrDefault(playerName, false);
     }
 
     public void putIfAbsent(String playerName,boolean isCoolDown){

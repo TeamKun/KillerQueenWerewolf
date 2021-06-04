@@ -69,12 +69,18 @@ public class BombManager {
         return null;
     }
 
+    public void removeBomb(String playerName){
+        if(bombMap.containsKey(playerName)){
+            bombMap.remove(playerName);
+        }
+    }
+
     /**
      * 指定されたカテゴリの爆弾リストを返す
      * NONEの場合は全件返却
      *
-     * @param category
-     * @return
+     * @param category　取得したい爆弾のカテゴリ
+     * @return 指定カテゴリの爆弾のリスト
      */
     public ArrayList<Bomb> getBombList(BombCategory category) {
         ArrayList<Bomb> bombList = new ArrayList<>();
@@ -90,4 +96,5 @@ public class BombManager {
         }
         return bombList;
     }
+
 }

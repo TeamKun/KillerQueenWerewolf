@@ -18,9 +18,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.InventoryHolder;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class StandListener implements Listener {
 
@@ -32,7 +29,7 @@ public class StandListener implements Listener {
     /**
      * インタラクトしたときの動作を振り分ける
      *
-     * @param e
+     * @param e　イベント
      */
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
@@ -65,7 +62,7 @@ public class StandListener implements Listener {
     /**
      * エンティティを爆弾としてセットする処理
      *
-     * @param e
+     * @param e　イベント
      */
     @EventHandler
     public void onInteractEntity(PlayerInteractEntityEvent e) {
@@ -102,7 +99,7 @@ public class StandListener implements Listener {
     /**
      * ブロックが破壊された際に爆弾リストから削除する
      *
-     * @param e
+     * @param e　イベント
      */
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {

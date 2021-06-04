@@ -6,6 +6,7 @@ import net.kunmc.lab.killerqueen.stand.Bomb;
 import net.kunmc.lab.killerqueen.util.BombManager;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.MetadataValue;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,8 @@ public class StandAbilityLogic {
 
     /**
      * ブロックが爆弾か判定する
-     * @param player
-     * @param block
+     * @param player 触れたプレイヤー
+     * @param block　触れたブロック
      */
     public void checkTouchBlockBomb(Player player, Block block) {
         ArrayList<Bomb> bombList = bombManager.getBombList(BombCategory.BLOCK);
@@ -32,14 +33,15 @@ public class StandAbilityLogic {
         BlastType blastType = BlastType.NONE;
         //叩かれたブロックが爆弾リストに含まれているか判定
         for (Bomb bomb : bombList) {
-            if (block == bomb.bombBlock()) {
+            if (block.getLocation().equals(bomb.bombBlock().getLocation())) {
                 isBomb = true;
                 blastType = bomb.blastType();
                 break;
             }
         }
         if (isBomb && blastType == BlastType.SWITCH) {
-            block.getWorld().createExplosion(player.getLocation(), 1);
+            player.getWorld().createExplosion(block.getLocation(), 4);
+            bombManager.removeBomb(player.getPlayerProfile().getName());
         }
     }
 
