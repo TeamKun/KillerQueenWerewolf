@@ -5,18 +5,24 @@ import net.kunmc.lab.killerqueen.logic.StandAbilityLogic;
 import net.kunmc.lab.killerqueen.task.CoolDown;
 import net.kunmc.lab.killerqueen.util.BombManager;
 import net.kunmc.lab.killerqueen.util.StandUserManager;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 
 
 public class StandListener implements Listener {
@@ -46,7 +52,6 @@ public class StandListener implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
-        System.out.println("発火");
         if (!e.hasItem()) {
             coolDown.putIfAbsent(playerName, false);
             if (coolDown.getCoolDownStatus(playerName)) {
@@ -55,7 +60,12 @@ public class StandListener implements Listener {
             coolDown.put(playerName, true);
             coolDown.startTask(playerName);
             Block block = e.getClickedBlock();
+            player.getInventory().setItem( player.getInventory().getHeldItemSlot(), new ItemStack(Material.STONE_BUTTON));
             bombManager.setBombMap(player.getPlayerProfile().getName(), block, BlastType.SWITCH);
+            return;
+        }
+        if(e.getItem().equals(Material.STONE_BUTTON) || bombManager.isSet(playerName)){
+            standAbilityLogic.activateButtonBomb(playerName);
         }
     }
 

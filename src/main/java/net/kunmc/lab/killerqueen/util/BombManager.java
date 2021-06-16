@@ -62,6 +62,30 @@ public class BombManager {
      * @param playerName 　プレイヤー名
      * @return　爆弾 or null
      */
+    public boolean isSet(String playerName) {
+        if (bombMap.containsKey(playerName)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 爆弾を削除する処理
+     *
+     * @param playerName 爆弾をセットしたプレイヤー名
+     */
+    public void removeBomb(String playerName) {
+        if (bombMap.containsKey(playerName)) {
+            bombMap.remove(playerName);
+        }
+    }
+
+    /**
+     * プレイヤーがセットしている爆弾を取得する
+     *
+     * @param playerName 爆弾をセットしているプレイヤーの名前
+     * @return プレイヤーがセットしている爆弾。無い場合はnullを返す
+     */
     public Bomb getBomb(String playerName) {
         if (bombMap.containsKey(playerName)) {
             return bombMap.get(playerName);
@@ -69,17 +93,11 @@ public class BombManager {
         return null;
     }
 
-    public void removeBomb(String playerName){
-        if(bombMap.containsKey(playerName)){
-            bombMap.remove(playerName);
-        }
-    }
-
     /**
      * 指定されたカテゴリの爆弾リストを返す
      * NONEの場合は全件返却
      *
-     * @param category　取得したい爆弾のカテゴリ
+     * @param category 　取得したい爆弾のカテゴリ
      * @return 指定カテゴリの爆弾のリスト
      */
     public ArrayList<Bomb> getBombList(BombCategory category) {
@@ -88,7 +106,7 @@ public class BombManager {
             if (category == BombCategory.NONE) {
                 bombList.add(bomb);
             } else {
-                if(category == bomb.category()){
+                if (category == bomb.category()) {
                     bombList.add(bomb);
                 }
             }
